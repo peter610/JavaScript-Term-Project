@@ -2,57 +2,64 @@ body {
     font-family: Arial, sans-serif;
     font-size: 1.5em;
     background-color:#F0F5D5;
-    /* background-image: url('../media/main-background.jpg');
+    background-image: url('../media/main-background.jpg');
     background-size: cover;
-    background-position-y: center;
-    background-repeat: repeat-x; */
+    background-position: center;
 }
 header{
-    background-color: #768C34;
-    color: #DEE9A1;
-    width:100%;
+    background-color: #24231F;
+    color: #D3CEC8;
+    width:1500px;
     height: 15%;
+    margin-left:-10px;
+    margin-top: -10px;
+    margin-right:-10px;
 }
 footer{
-    background-color: #768C34;
-    color: #DEE9A1;
-    width:100%;
+    background-color: #24231F;
+    color: #D3CEC8;
+    width:1500px;
     height: 10%;
+    margin-left:-10px;
+    margin-bottom: -10px;
+    margin-right:-10px;
 } 
 article{
     display: flex;
     flex-direction:row;
-    /* min-height:75%; */
-    flex-wrap:wrap;
+    min-height:75%; 
+    flex-wrap:wrap; 
     justify-content:space-between;
+    opacity: .8;
 }
 section{
     flex:1;
     padding-left: 4%;
+    /* padding-right:4%; */
     min-width:80%;
     max-width:100%;
     height:550px;
 }
 div{
     padding: none;
-
+    margin: none;
 }
 h1{
     font-family: Arial, sans-serif;
     padding-left:2%;
     font-size: 2em;
-    color: #DEE9A1;
+    color: #D3CEC8;
     text-shadow:3px;
     text-align: left;
 }
 h2{
     font-family: Arial, sans-serif;
     text-align: center;
-    color:#96B23A;
+    color:#24231F;
     font-size: 1.5em;
     text-shadow:1px;
     width:97%;
-    background-color:#DEE9A1;
+    background-color:#D3CEC8;
     padding: 1px;
     border-radius: 2px;
 }
@@ -60,6 +67,7 @@ h2{
     overflow: hidden;
     border: none;
     padding: none;
+    margin: none;
 }
 .tab button{
     font-size: .85em;
@@ -69,24 +77,25 @@ h2{
     border-radius: 10px 10px 0px 0px;
     outline: none;
     cursor: pointer;
-    width: 10%;
+    width: 15%;
     height: 48px;
 }
 .tabcontent{
     display: none;
-    width: 95%;
+    width: 97%;
     border: 1px solid;
     border-top: none;
+    margin-top:-30px;
 }
 #Game1, #G1{
-    background-color: gray;
+    background-color: #4B4337;
     display: block;
 }
 #Game2, #G2{
-    background-color: rgb(175, 49, 49);
+    background-color: #728389;
 }
 #Game3, #G3{
-    background-color: rgb(45, 45, 180);
+    background-color: #988874;
 }
 /*nav {
     margin: 0px;
