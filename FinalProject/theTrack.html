@@ -13,13 +13,19 @@
     <body onload="startGame()">
         <script>
             var myGamePiece;
+            var myBackground;
             var myObstacles = [];
             var myScore;
+            var myCrash1;
+            var myCrash2;
 
             function startGame(){
                 myGameArea.start();
-                myGamePiece = new component(50, 40, "green", 10, 165);
+                myGamePiece = new component(60, 40, "media/trackTruck.png", 10, 165, "image");
+                myBackground = new component(680, 370, "media/theTrackBackground.png", 0, 0, "background");
                 myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+                myCrash1 = new component("30px", "Consolas", "black", 170, 100, "text");
+                myCrash2 = new component("30px", "Consolas", "black", 35, 130, "text");
             }
             var myGameArea = {
                 canvas : document.createElement("canvas"),
@@ -43,6 +49,11 @@
                 },
                 stop : function(){
                     clearInterval(this.interval);
+                    myCrash1.text = "You have crashed."
+                    myCrash1.update();
+                    myCrash2.text = "Visit the shop to repair your truck."
+                    myCrash2.update();
+
                 }
             }
 
@@ -52,6 +63,10 @@
             }
             function component(width, height, color, x, y, type) {
                 this.type = type;
+                if (type =="image"|| type == "background"){
+                    this.image = new Image();
+                    this.image.src = color;
+                }
                 this.width = width;
                 this.height = height;
                 this.speedX = 0;
@@ -60,7 +75,14 @@
                 this.y = y;
                 this.update = function(){
                     ctx = myGameArea.context;
-                    if (this.type == "text"){
+                    if (type == "image" || type == "background"){
+                        ctx.drawImage(this.image,
+                        this.x, this.y, this.width, this.height);
+                        if (type == "background") {
+                            ctx.drawImage(this.image, this.x + this.width, this.y, this.width, this.height);
+                        }
+                    }
+                    else if (this.type == "text"){
                         ctx.font = this.width + " " + this.height;
                         ctx.fillStyle = color;
                         ctx.fillText(this.text, this.x, this.y);
@@ -72,6 +94,11 @@
                 this.newPos = function() {
                     this.x += this.speedX;
                     this.y += this.speedY;
+                    if (this.type == "background"){
+                        if(this.x == -(this.width)){
+                            this.x = 0;
+                        }
+                    }
                 }
                 this.crashWith = function(otherobj){
                     var myleft = this.x;
@@ -101,8 +128,11 @@
                     }
                 } 
                 myGameArea.clear();
+                myBackground.speedX = -1;
+                myBackground.newPos();
+                myBackground.update();
                 myGameArea.frameNo += 1;
-                if (myGameArea.frameNo == 1 || everyinterval(150)){
+                if (myGameArea.frameNo == 1 || everyinterval(200)){
                     x = myGameArea.canvas.width;
                     minHeight = 20;
                     maxHeight = 200;
@@ -110,8 +140,8 @@
                     minGap = 60;
                     maxGap = 150;
                     gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
-                    myObstacles.push(new component(10, height, "purple", x, 0));
-                    myObstacles.push(new component(10, x-height-gap, "purple", x, height + gap));
+                    myObstacles.push(new component(10, height, "media/barrier.png", x, 0, "image"));
+                    myObstacles.push(new component(10, x-height-gap, "media/barrier.png", x, height + gap, "image"));
                 }
                 for (i = 0; i < myObstacles.length; i += 1){
                     myObstacles[i].x += -1;
@@ -121,7 +151,7 @@
                 myScore.update();
                 myGamePiece.speedX = 0;
                 myGamePiece.speedY = 0;
-                if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -1; }
+                if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -.5; }
                 if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 1; }
                 if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -1; }
                 if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 1; }
